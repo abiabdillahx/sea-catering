@@ -11,8 +11,19 @@
   <img width="12" />
   <img src="https://skillicons.dev/icons?i=prisma" height="40" alt="css3 logo"  />
   <img width="12" />
+  <img src="https://skillicons.dev/icons?i=supabase" height="40" alt="css3 logo"  />
+  <img width="12" />
+  <img src="https://skillicons.dev/icons?i=react" height="40" alt="css3 logo"  />
 
-## Run the project
+- Frontend : Next.js
+- Backend : 
+- DB : PostgreSQL
+- Auth
+- ORM : Prisma
+- CSS
+
+
+## ⬇️ Run the project
 Run on the local server:
 ```bash
 # clone the repo 
