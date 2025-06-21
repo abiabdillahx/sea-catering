@@ -14,14 +14,18 @@
   <img src="https://skillicons.dev/icons?i=supabase" height="40" alt="css3 logo"  />
   <img width="12" />
   <img src="https://skillicons.dev/icons?i=react" height="40" alt="css3 logo"  />
+  <br><br>
+</div>
 
-- Frontend : Next.js
+- Frontend : Next.js (App router)
 - Backend : 
 - DB : PostgreSQL
 - Auth
 - ORM : Prisma
 - CSS
 
+## 🔥 Features
+- Authorization
 
 ## ⬇️ Run the project
 Run on the local server:

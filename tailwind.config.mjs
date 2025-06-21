@@ -6,7 +6,13 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        outfit: ["var(--font-outfit)", "sans-serif"],
+        poppins: ["var(--font-poppins)", "sans-serif"],
+        geist: ["var(--font-geist-sans)", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 }
