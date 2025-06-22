@@ -114,6 +114,8 @@ export default function Home() {
             <div className="flex justify-center md:justify-end">
             <Image
                 src="/assets/meal-img.jpg"
+                width='1920'
+                height='1280'
                 alt="Makanan Lezat SEA Catering"
                 className="rounded-2xl shadow-xl max-w-full max-h-[500px] object-cover"
             />

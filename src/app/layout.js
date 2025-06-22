@@ -29,7 +29,23 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "SEA Catering - Home",
   description: "Healthy Meals, Anytime, Anywhere",
+  openGraph: {
+    title: "SEA Catering - Home",
+    description: "Healthy Meals, Anytime, Anywhere",
+    url: "/",
+    siteName: "SEA Catering",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "SEA Catering OG Image",
+      },
+    ],
+    type: "website",
+  },
 };
+
 
 export default function RootLayout({ children }) {
   return (
