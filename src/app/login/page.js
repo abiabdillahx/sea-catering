@@ -15,6 +15,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-card text-card-foreground p-8 rounded-xl shadow-lg border border-border space-y-6">
         <Image
             src='/logo.png'
+            alt='SEA Logo'
             className="justify-items-center"
             width='300'
             height='15'

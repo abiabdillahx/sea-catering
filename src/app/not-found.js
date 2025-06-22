@@ -11,7 +11,7 @@ export default function NotFound(){
                         <CloudAlert className="w-10 h-10 sm:w-20 sm:h-20"></CloudAlert>
                         <h1 className="font-bold item-center text-7xl">Not Found</h1>
                     </div>
-                    <p className="text-xl">The page you're looking for isn't here vro...</p>
+                    <p className="text-xl">The page you&apos;re looking for isn&apos;t here vro...</p>
                     <div className="flex gap-5">
                         <Link
                             className='text-background px-6 py-4 rounded-full duration-200 bg-primary hover:bg-foreground '

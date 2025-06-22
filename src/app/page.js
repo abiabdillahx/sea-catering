@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/card"
 import Link from "next/link"
 import Testimoni from "@/components/Testimoni"
+import Image from "next/image"
 
 export default function Home() {
   const features = [
@@ -111,7 +112,7 @@ export default function Home() {
 
             {/* Image Section */}
             <div className="flex justify-center md:justify-end">
-            <img
+            <Image
                 src="/assets/meal-img.jpg"
                 alt="Makanan Lezat SEA Catering"
                 className="rounded-2xl shadow-xl max-w-full max-h-[500px] object-cover"
