@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
 
         <div className="text-sm text-muted-accent">
-          Contact Person: <span className="font-medium text-accent">Brian</span> (08123456789)
+          Contact Person: <span className="font-medium text-accent">Brian</span> (<a href='https://wa.me/+628123456789' target='_blank'>08123456789</a>)
         </div>
       </div>
     </footer>
