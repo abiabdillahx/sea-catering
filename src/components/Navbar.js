@@ -3,27 +3,33 @@ import { ChefHat, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const menuItems = [
-    { label: "Beranda", href: "#home" },
-    { label: "Layanan", href: "#services" },
-    { label: "Menu", href: "#menu" },
-    { label: "Testimoni", href: "#testimonials" },
-    { label: "Kontak", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "Services", href: "/services" },
+    { label: "Menu", href: "/menu" },
+    { label: "Subscription", href: "/subscription" },
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-background border-b border-border backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-accent px-15 transition-all border-b duration-200 border-border backdrop-blur-md">
       <div className="container flex items-center justify-between py-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <ChefHat className="text-primary w-6 h-6" />
+          {/* <ChefHat className="text-primary w-6 h-6" />
           <span className="text-xl font-bold tracking-tight text-foreground font-poppins">
             SEA Catering
-          </span>
+          </span> */}
+          <Image
+            className=''
+            src='/logo.png'
+            width={130}
+            height={120}
+          />
         </div>
 
         {/* Desktop Menu */}
@@ -32,17 +38,16 @@ export default function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="hover:text-primary transition-colors"
+              className="hover:text-primary active:border-b duration-200 hover:border-b hover:-translate-y-0.5 hover:border-primary transition-all "
             >
               {item.label}
             </a>
           ))}
-          <Button className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 font-medium">
-            <Link href="github.com">
-              Pesan Sekarang
-            
-            </Link>
-          </Button>
+          <Link href="/login">
+            <Button className=" rounded-full ml-4 bg-primary text-primary-foreground hover:bg-foreground duration-200 font-medium cursor-pointer">
+              Log In
+            </Button>
+          </Link>
         </nav>
 
         {/* Mobile menu toggle */}
@@ -56,7 +61,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-background border-t border-border px-4 py-3 space-y-2 font-poppins">
+        <div className="md:hidden bg-accent border-t border-border px-4 py-3 space-y-2 font-poppins">
           {menuItems.map((item) => (
             <a
               key={item.href}
@@ -67,9 +72,11 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium mt-2">
-            Pesan Sekarang
-          </Button>
+          <Link href='/login'>
+            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium mt-2">
+              Log In
+            </Button>
+          </Link>
         </div>
       )}
     </header>
