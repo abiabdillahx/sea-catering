@@ -4,32 +4,33 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   const menuItems = [
     { label: "Home", href: "/" },
-    { label: "Services", href: "/services" },
     { label: "Menu", href: "/menu" },
     { label: "Subscription", href: "/subscription" },
+    { label: "Contact Us", href: "/contacts" },
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-accent px-15 transition-all border-b duration-200 border-border backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-accent/30 px-15 transition-all border-b duration-200 border-border backdrop-blur-md">
       <div className="container flex items-center justify-between py-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          {/* <ChefHat className="text-primary w-6 h-6" />
-          <span className="text-xl font-bold tracking-tight text-foreground font-poppins">
-            SEA Catering
-          </span> */}
-          <Image
-            className=''
-            src='/logo.png'
-            width={130}
-            height={120}
-          />
+          <Link href='/'>
+            <Image
+              className=''
+              alt='SEA Logo'
+              src='/logo.png'
+              width={130}
+              height={120}
+            />
+          </Link>
         </div>
 
         {/* Desktop Menu */}
@@ -38,7 +39,11 @@ export default function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="hover:text-primary active:border-b duration-200 hover:border-b hover:-translate-y-0.5 hover:border-primary transition-all "
+              className={`transition-all duration-200 hover:text-primary hover:border-b hover:border-primary hover:-translate-y-0.5 ${
+                pathname === item.href
+                  ? "text-primary border-b border-primary"
+                  : ""
+              }`}
             >
               {item.label}
             </a>
@@ -61,7 +66,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-accent border-t border-border px-4 py-3 space-y-2 font-poppins">
+        <div className="md:hidden bg-accent/5 border-t border-border px-4 py-3 space-y-2 font-poppins">
           {menuItems.map((item) => (
             <a
               key={item.href}
@@ -73,7 +78,7 @@ export default function Navbar() {
             </a>
           ))}
           <Link href='/login'>
-            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium mt-2">
+            <Button className="rounded-full w-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium mt-2">
               Log In
             </Button>
           </Link>
