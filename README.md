@@ -3,17 +3,9 @@
 
 ## 🚀 Tech Stack
 <div align="left">
-  <a href"#"><img src="https://skillicons.dev/icons?i=next" height="40" alt="html5 logo"  /></a>
+  <a href"#"><img src="https://skillicons.dev/icons?i=next,js,react,tailwind,prisma,supabase" height="40" alt="html5 logo"  /></a>
   <img width="12" />
-  <img src="https://skillicons.dev/icons?i=js" height="40" alt="css3 logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=tailwind" height="40" alt="css3 logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=prisma" height="40" alt="css3 logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=supabase" height="40" alt="css3 logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=react" height="40" alt="css3 logo"  />
+  <!-- <img src="https://skillicons.dev/icons?i=postgres" height="40" alt="css3 logo"  /> -->
   <br><br>
 </div>
 
@@ -25,7 +17,11 @@
 - CSS
 
 ## 🔥 Features
-- Authorization
+- Subscription 
+- Customized meal menu
+- Detail nutrition facts
+- Ship to major cities
+- Fresh from the experienced chefs
 
 ## ⬇️ Run the project
 Run on the local server:
@@ -33,10 +29,12 @@ Run on the local server:
 # clone the repo 
 git clone https://github.com/abiabdillahx/sea-catering.git
 cd sea-catering
+
 # install the dependencies
 npm install
+
 # start the server
-npm start
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
