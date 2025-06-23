@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import 'keen-slider/keen-slider.min.css';
+
 
 @custom-variant dark (&:is(.dark *));
 
@@ -139,7 +141,7 @@
 }
 
 .animate-scroll-left {
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left 10s linear infinite;
 }
 
 html {

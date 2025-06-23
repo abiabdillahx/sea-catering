@@ -4,6 +4,7 @@ import { Outfit } from "next/font/google"
 import { Poppins } from "next/font/google"
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { icons } from "lucide-react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -27,10 +28,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "SEA Catering - Home",
+  title: "SEA Catering",
   description: "Healthy Meals, Anytime, Anywhere",
+  icons: {
+    icon: "/favicon.ico"
+  },
   openGraph: {
-    title: "SEA Catering - Home",
+    title: "SEA Catering",
     description: "Healthy Meals, Anytime, Anywhere",
     url: "/",
     siteName: "SEA Catering",

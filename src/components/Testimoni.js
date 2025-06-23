@@ -1,8 +1,10 @@
 'use client'
 import Image from "next/image"
-import { Star } from "lucide-react"
+import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "./ui/button"
 import Link from "next/link"
+import { useKeenSlider } from "keen-slider/react"
+import { useEffect, useRef, useState } from "react"
 
 const testimonials = [
   {
@@ -36,18 +38,62 @@ const testimonials = [
 ]
 
 export default function Testimoni() {
+  const [sliderRef, slider] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    breakpoints: {
+      "(min-width: 640px)": {
+        slides: { perView: 2, spacing: 20 },
+      },
+      "(min-width: 1024px)": {
+        slides: { perView: 4, spacing: 24 },
+      },
+    },
+  })
+
+  const timerRef = useRef(null)
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    if (!slider.current) return
+    timerRef.current = setInterval(() => {
+      slider.current?.next()
+    }, 3000)
+
+    return () => clearInterval(timerRef.current)
+  }, [slider])
+
+  const pauseAutoScroll = () => clearInterval(timerRef.current)
+  const resumeAutoScroll = () => {
+    timerRef.current = setInterval(() => slider.current?.next(), 3000)
+  }
+
   return (
     <section className="py-20 bg-accent/40">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-10">
           Kata Mereka Tentang SEA Catering
         </h2>
-        <div className="overflow-hidden relative">
-          <div className="flex space-x-6 animate-scroll-left w-max">
-            {[...testimonials, ...testimonials].map((t, i) => (
+
+        <div
+          onMouseEnter={() => {
+            pauseAutoScroll()
+            setHovered(true)
+          }}
+          onMouseLeave={() => {
+            resumeAutoScroll()
+            setHovered(false)
+          }}
+          className="relative"
+        >
+          <div ref={sliderRef} className="keen-slider">
+            {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="min-w-[300px] max-w-xs bg-card border border-border p-6 rounded-lg shadow-sm"
+                className="keen-slider__slide min-w-[300px] bg-card border border-border p-6 rounded-lg shadow-sm"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <Image
@@ -73,14 +119,32 @@ export default function Testimoni() {
               </div>
             ))}
           </div>
-          <div className="mt-10 grid justify-items-center">
-            <Link href='/rating'>
-                <Button className='rounded-full cursor-pointer hover:bg-primary/80'>
-                    <Star/> Rate us here
-                </Button>
-            </Link>
 
-          </div>
+          {/* Controls */}
+          {hovered && (
+            <>
+              <button
+                onClick={() => slider.current?.prev()}
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground p-2 rounded-full shadow hover:bg-primary/90 transition"
+              >
+                <ChevronLeft className="w-5 h-5 cursor-pointer" />
+              </button>
+              <button
+                onClick={() => slider.current?.next()}
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground p-2 rounded-full shadow hover:bg-primary/90 transition"
+              >
+                <ChevronRight className="w-5 h-5 cursor-pointer" />
+              </button>
+            </>
+          )}
+        </div>
+
+        <div className="mt-10 grid justify-items-center">
+          <Link href='/rating'>
+            <Button className='rounded-full cursor-pointer hover:bg-primary/80'>
+              <Star className="mr-2 w-4 h-4" /> Rate us here
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
