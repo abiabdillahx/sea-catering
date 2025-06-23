@@ -21,7 +21,7 @@ export default function RatingForm() {
       onSubmit={handleSubmit}
       className="bg-card p-8 rounded-xl shadow-md space-y-6 border border-border max-w-xl"
     >
-      <h1 className="text-4xl font-bold text-primary">Beri Kami Rating</h1>
+      <h1 className="text-4xl font-bold text-primary">Bagikan pengalamanmu!</h1>
 
       {/* Nama */}
       <div>
