@@ -1,29 +1,29 @@
 "use client"
 import { useState } from "react"
 import mealPlans from "../../data/mealPlans"
-import MealCard from "@/components/MealCard"
-import MealModal from "@/components/MealModal"
+import PlanCard from "@/components/PlanCard"
+import PlanModal from "@/components/PlanModal"
 import CTA from "@/components/CTA"
 
 export default function MenuPage() {
-  const [selectedMeal, setSelectedMeal] = useState(null)
+  const [selectedPlan, setSelectedPlan] = useState(null)
 
   return (
     <>
-    <section className="py-20 px-16 container mx-auto">
+    <section className="py-20 px-24 container mx-auto">
       <h1 className="text-4xl font-bold text-center mb-12 text-foreground">Pilih Paket Makanan Anda</h1>
       <div className="grid md:grid-cols-3 gap-8">
-        {mealPlans.map((meal) => (
-          <MealCard key={meal.id} meal={meal} onDetailClick={setSelectedMeal} />
+        {mealPlans.map((plan) => (
+          <PlanCard key={plan.id} plan={plan} onDetailClick={setSelectedPlan} />
         ))}
       </div>
 
-      {selectedMeal && (
-        <MealModal
-          meal={selectedMeal}
-          open={!!selectedMeal}
+      {selectedPlan && (
+        <PlanModal
+          plan={selectedPlan}
+          open={!!selectedPlan}
           onOpenChange={(open) => {
-            if (!open) setSelectedMeal(null)
+            if (!open) setSelectedPlan(null)
           }}
         />
       )}

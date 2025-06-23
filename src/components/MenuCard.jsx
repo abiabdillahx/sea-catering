@@ -7,18 +7,19 @@ export default function MenuCard({ meal, onDetailClick }) {
   return (
     <Card
       onClick={() => onDetailClick(meal)}
-      className="hover:shadow-xl cursor-pointer transition-transform duration-200 hover:scale-105"
+      className="hover:shadow-xl transition-transform duration-200 hover:scale-105"
     >
-      <CardHeader className="p-0">
+      <CardHeader className="pb-0">
         <img
           src={meal.image}
           alt={meal.name}
-          className="rounded-t-lg w-full h-40 object-cover"
+          className="rounded-xl w-full h-44 object-cover"
         />
       </CardHeader>
 
-      <CardContent className="space-y-2 p-4">
+      <CardContent className="space-y-2">
         <h3 className="text-lg font-semibold">{meal.name}</h3>
+        
         <div className="flex flex-wrap gap-2">
           <Badge variant="secondary">{meal.plan}</Badge>
           {meal.tags.map((tag, idx) => (
@@ -33,8 +34,8 @@ export default function MenuCard({ meal, onDetailClick }) {
         <div className="text-right mt-2">
           <Button
             size="sm"
-            className="cursor-pointer"
             variant="outline"
+            className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation()
               onDetailClick(meal)
