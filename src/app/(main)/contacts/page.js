@@ -5,6 +5,7 @@ import RatingForm from "@/components/Rating"
 
 export default function ContactPage() {
   return (
+    
     <div className="min-h-screen py-20 px-6 md:px-16 bg-background text-foreground font-outfit">
       {/* Heading */}
       <div className="text-center mb-16">
@@ -61,5 +62,6 @@ export default function ContactPage() {
         </p>
       </div>
     </div>
+    
   )
 }
