@@ -19,7 +19,7 @@ export default function AuthLayout({ children }) {
               width={120}
               height={80}
               priority
-              className="object-contain"
+              className="object-contain select-none"
             />
           </Link>
         </div>

@@ -7,7 +7,7 @@ import { Mail, Lock } from "lucide-react"
 import Image from "next/image"
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
   return (
@@ -20,7 +20,7 @@ export default function LoginPage() {
           alt="SEA Chef"
           width={450}
           height={500}
-          className="object-contain"
+          className="object-contain select-none"
           priority
         />
       </div>
@@ -37,27 +37,27 @@ export default function LoginPage() {
 
           <form className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Email</label>
-              <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background">
+              <label className="block text-sm font-medium text-foreground mb-1">Username</label>
+              <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background focus-within:border-primary transition-all duration-200">
                 <Mail className="w-4 h-4 mr-2 text-muted-foreground" />
-                <Input
-                  type="email"
-                  placeholder="you@example.com"
-                  className="border-none bg-transparent focus:outline-none p-0"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                <input
+                  type="text"
+                  placeholder="compfest.17"
+                  className="border-none bg-transparent focus:outline-none p-0 py-2 text-sm"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">Password</label>
-              <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background">
+              <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background focus-within:border-primary transition-all duration-200">
                 <Lock className="w-4 h-4 mr-2 text-muted-foreground" />
-                <Input
+                <input
                   type="password"
                   placeholder="••••••••"
-                  className="border-none bg-transparent focus:outline-none p-0"
+                  className="border-none bg-transparent focus:outline-none p-0 py-2 text-sm"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
