@@ -1,10 +1,12 @@
 import Link from "next/link";
+import "./globals.css"
 import { CloudAlert } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
 export default function NotFound(){
     return (
         <>
+            <Navbar/>
             <div className="grid grid-rows-[10px_1fr_10px] items-center justify-items-center my-50 font-outfit bg-background">
                 <main className="flex flex-col gap-[20px] row-start-2 justify-items-center items-center">
                     <div className="flex flex-row items-center gap-3 text-7xl">

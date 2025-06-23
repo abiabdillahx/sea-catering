@@ -3,6 +3,7 @@ import Image from "next/image"
 
 export default function MealModal({ meal, open, onOpenChange }) {
   return (
+    <>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
@@ -15,5 +16,6 @@ export default function MealModal({ meal, open, onOpenChange }) {
         <p className="text-muted-foreground">{meal?.details}</p>
       </DialogContent>
     </Dialog>
+    </>
   )
 }

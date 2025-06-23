@@ -8,13 +8,13 @@ import Image from "next/image"
 
 export default function RegisterPage() {
   const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background relative">
-
+    <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background relative font-outfit">
+      
       {/* Left Image */}
       <div className="hidden md:flex items-center justify-center bg-accent/30">
         <Image
@@ -37,7 +37,7 @@ export default function RegisterPage() {
 
           <form className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Nama Lengkap</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Nama Lengkap *</label>
               <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background">
                 <User className="w-4 h-4 mr-2 text-muted-foreground" />
                 <Input
@@ -46,20 +46,22 @@ export default function RegisterPage() {
                   className="border-none bg-transparent focus:outline-none p-0"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Email</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Email *</label>
               <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background">
                 <Mail className="w-4 h-4 mr-2 text-muted-foreground" />
                 <Input
-                  type="email"
+                  type="text"
                   placeholder="you@example.com"
                   className="border-none bg-transparent focus:outline-none p-0"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -74,6 +76,7 @@ export default function RegisterPage() {
                   className="border-none bg-transparent focus:outline-none p-0"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -88,6 +91,7 @@ export default function RegisterPage() {
                   className="border-none bg-transparent focus:outline-none p-0"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -108,6 +112,6 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

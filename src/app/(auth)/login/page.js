@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("")
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background relative">
+    <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background relative font-outfit">
 
       {/* Left Image */}
       <div className="hidden md:flex items-center justify-center bg-accent/30">
@@ -26,7 +26,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Login Form */}
-      <div className="flex items-center justify-center px-6 py-10">
+      <div className="flex items-center justify-center px-6 py-10 ">
         <div className="w-full max-w-md bg-card text-card-foreground p-8 rounded-xl shadow-lg border border-border space-y-6">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold text-primary">Selamat Datang</h1>
@@ -80,6 +80,6 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

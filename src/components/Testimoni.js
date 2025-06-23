@@ -140,7 +140,7 @@ export default function Testimoni() {
         </div>
 
         <div className="mt-10 grid justify-items-center">
-          <Link href='/rating'>
+          <Link href='/contacts'>
             <Button className='rounded-full cursor-pointer hover:bg-primary/80'>
               <Star className="mr-2 w-4 h-4" /> Rate us here
             </Button>
