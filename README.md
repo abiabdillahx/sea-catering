@@ -2,7 +2,8 @@
   <h1>SEA Catering</h1>
 
   [![Logo banner](./docs/banner.png)](https://sea-catering.zenc.my.id/)
-  [-- Our Website --](https://sea-catering.zenc.my.id/)
+  -- Our Website --
+  [sea-catering.zenc.my.id](https://sea-catering.zenc.my.id/)
 </div>
 
 ## 🚀 Tech Stack
@@ -19,6 +20,7 @@
 - Auth : 
 - ORM : Prisma
 - UI : TailwindCSS + shadcn/ui
+- Deployment : 
 
 ## 🔥 Our Features
 - Subscription 
@@ -52,3 +54,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 📚 API Documentation
+API documentation is available at [http://localhost:3000/api/docs](
