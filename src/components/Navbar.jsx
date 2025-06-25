@@ -1,10 +1,20 @@
 "use client"
+
 import { ChefHat, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem, } from "./ui/dropdown-menu"
+import { Avatar } from "./ui/avatar"
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+
+import { useSession } from "next-auth/react"
+
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -16,6 +26,7 @@ export default function Navbar() {
     { label: "Subscription", href: "/subscription" },
     { label: "Contact Us", href: "/contacts" },
   ]
+  const { data: session } = useSession()
 
   return (
     <header className="select-none justify-items-center sticky top-0 z-50 bg-accent/30 px-15 transition-all border-b duration-200 border-border backdrop-blur-md">
@@ -48,11 +59,29 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <Link href="/login">
-            <Button className=" rounded-full ml-4 bg-primary text-primary-foreground hover:bg-foreground duration-200 font-medium cursor-pointer">
-              Log In
-            </Button>
-          </Link>
+          {session?.user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar src={session.user.image || "/public/avatar-default.png"} />
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => router.push("/profile")}>
+                  Profil
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => signOut()}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link href="/login">
+              <Button className="rounded-full ml-4 bg-primary text-primary-foreground hover:bg-foreground duration-200 font-medium cursor-pointer">
+                Log In
+              </Button>
+            </Link>
+          )}
+
         </nav>
 
         {/* Mobile menu toggle */}
