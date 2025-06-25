@@ -5,6 +5,7 @@ import { Poppins } from "next/font/google"
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { icons } from "lucide-react";
+import LayoutClient, { LayoutCLient } from "./layout-client"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -57,9 +58,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.variable} ${outfit.variable} ${geistSans.variable} ${geistMono.variable} antialiased bg-background font-outfit`}
       >
-        {/* <Navbar></Navbar> */}
+        <LayoutClient>
         {children}
-        {/* <Footer></Footer> */}
+        </LayoutClient>
       </body>
     </html>
   );

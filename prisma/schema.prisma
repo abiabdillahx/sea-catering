@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id            String         @id @default(uuid())
+  name          String
+  username      String         @unique
+  phone         String         @unique
+  password      String
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  sessions      Session[]
+  subscriptions Subscription[]
+  testimonials  Testimonial[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         users    @relation(fields: [userId], references: [id])
+}
+
+model MealPlan {
+  id            String         @id @default(cuid())
+  name          String
+  price         Int
+  description   String
+  image         String
+  details       String
+  menus         Menu[]
+  subscriptions Subscription[]
+}
+
+model Menu {
+  id          String     @id @default(cuid())
+  name        String
+  description String
+  image       String?
+  tags        String[]
+  mealTypes   MealType[]
+  planId      String
+  createdAt   DateTime   @default(now())
+  plan        MealPlan   @relation(fields: [planId], references: [id])
+}
+
+model Subscription {
+  id           String     @id @default(uuid())
+  userId       String
+  planId       String
+  phone        String
+  mealTypes    MealType[]
+  deliveryDays String[]
+  allergies    String?
+  totalPrice   Int
+  createdAt    DateTime   @default(now())
+  plan         MealPlan   @relation(fields: [planId], references: [id])
+  user         users      @relation(fields: [userId], references: [id])
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  userId    String
+  message   String
+  rating    Int      @default(5)
+  createdAt DateTime @default(now())
+  user      users    @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+}

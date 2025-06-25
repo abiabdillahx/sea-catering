@@ -2,17 +2,40 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Mail, Lock } from "lucide-react"
+import { Lock, Phone } from "lucide-react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
+import toast from "react-hot-toast"
 
 export default function LoginPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    setLoading(true)
+    const res = await signIn("credentials", {
+        redirect: false,
+        identifier: username,
+        password,
+      })
+
+      if (res?.error) {
+        toast.error("Login gagal: " + res.error)
+      } else {
+        toast.success("Berhasil login!")
+        router.push("/")
+      }
+      setLoading(false)
+    }
 
   return (
     <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-background relative font-outfit">
-
       {/* Left Image */}
       <div className="hidden md:flex items-center justify-center bg-accent/30">
         <Image
@@ -35,40 +58,29 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Username</label>
-              <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background focus-within:border-primary transition-all duration-200">
-                <Mail className="w-4 h-4 mr-2 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="compfest.17"
-                  className="border-none bg-transparent focus:outline-none p-0 py-2 text-sm"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Password</label>
-              <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background focus-within:border-primary transition-all duration-200">
-                <Lock className="w-4 h-4 mr-2 text-muted-foreground" />
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  className="border-none bg-transparent focus:outline-none p-0 py-2 text-sm"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
+          <form onSubmit={handleLogin} className="space-y-5">
+            <Field
+              label="Username atau No HP"
+              value={username}
+              onChange={setUsername}
+              Icon={Phone}
+              placeholder="compfest.sea atau 08xxxx"
+            />
+            <Field
+              label="Password"
+              value={password}
+              onChange={setPassword}
+              Icon={Lock}
+              type="password"
+              placeholder="••••••••"
+            />
 
             <Button
               type="submit"
+              disabled={loading}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              Masuk
+              {loading ? "Loading..." : "Masuk"}
             </Button>
           </form>
 
@@ -81,5 +93,24 @@ export default function LoginPage() {
         </div>
       </div>
     </section>
+  )
+}
+
+function Field({ label, value, onChange, Icon, type = "text", placeholder }) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-foreground mb-1">{label}</label>
+      <div className="flex items-center border border-input rounded-md px-3 py-2 bg-background focus-within:border-primary transition-all">
+        <Icon className="w-4 h-4 mr-2 text-muted-foreground" />
+        <input
+          type={type}
+          placeholder={placeholder}
+          className="border-none bg-transparent focus:outline-none p-0 text-sm py-2 w-full"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          required
+        />
+      </div>
+    </div>
   )
 }
