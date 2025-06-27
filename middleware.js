@@ -5,15 +5,30 @@ export async function middleware(req) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
   const { pathname } = req.nextUrl
 
-  if (pathname.startsWith("/admin")) {
-    if (!token) return NextResponse.redirect(new URL("/login", req.url))
-    if (token.role !== "ADMIN") return NextResponse.redirect(new URL("/", req.url))
+  // 🔒 Cegah akses ke /login & /register jika udah login
+  if (token && (pathname === "/login" || pathname === "/register")) {
+    const role = token.role
+    const redirectTo = role === "ADMIN" ? "/admin" : "/user"
+    return NextResponse.redirect(new URL(redirectTo, req.url))
   }
 
+  // 🔐 Protect /admin
+  if (pathname.startsWith("/admin")) {
+    if (!token || token.role !== "ADMIN") {
+      return NextResponse.redirect(new URL("/", req.url))
+    }
+  }
+
+  // 🔐 Protect /user
   if (pathname.startsWith("/user")) {
-    if (!token) return NextResponse.redirect(new URL("/login", req.url))
-    if (token.role !== "USER") return NextResponse.redirect(new URL("/", req.url))
+    if (!token || token.role !== "USER") {
+      return NextResponse.redirect(new URL("/", req.url))
+    }
   }
 
   return NextResponse.next()
+}
+
+export const config = {
+  matcher: ["/admin/:path*", "/user/:path*", "/login", "/register"],
 }

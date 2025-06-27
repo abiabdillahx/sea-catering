@@ -1,8 +1,16 @@
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
 
 import Sidebar from "@/components/Sidebar"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { redirect } from "next/navigation"
 
-export default function UserPage() {
+export default async function UserPage() {
+  const session = await getServerSession(authOptions)
+  
+  if (!session || session.user.role !== "USER") {
+      redirect("/") 
+  }
   return (
     <p>halo</p>
   )

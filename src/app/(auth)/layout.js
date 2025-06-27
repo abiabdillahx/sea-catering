@@ -2,6 +2,10 @@ import "../globals.css"
 import Link from "next/link"
 import Image from "next/image"
 
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { redirect } from "next/navigation"
+
 import { Toaster } from "react-hot-toast"
 
 export const metadata = {
@@ -9,7 +13,13 @@ export const metadata = {
   description: 'Log In to SEA Catering',
 }
 
-export default function AuthLayout({ children }) {
+export default async function AuthLayout({ children }) {
+  const session = await getServerSession(authOptions)
+  
+  if (session?.user?.role === "ADMIN" || session?.user?.role === "USER") {
+    redirect("/")
+  }
+
   return (
     <>
     <Toaster position="top-center" />

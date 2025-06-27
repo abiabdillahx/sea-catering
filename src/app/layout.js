@@ -29,6 +29,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL),
   title: "SEA Catering",
   description: "Healthy Meals, Anytime, Anywhere",
   icons: {

@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 export async function POST(req) {
   try {
-    const { name, username, phone, password } = await req.json()
+    const { name, username, phone, password, image } = await req.json()
 
     if (!name || !username || !phone || !password) {
       return NextResponse.json({ error: "Semua field wajib diisi" }, { status: 400 })
@@ -32,6 +32,7 @@ export async function POST(req) {
         username,
         phone,
         password: hashedPassword,
+        image: "/avatar-default.png"
       }
     })
 
