@@ -28,17 +28,44 @@ export const authOptions = {
         const isValid = await compare(credentials.password, user.password)
         if (!isValid) throw new Error("Password salah")
 
-        return user
+        return {
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          role: user.role,
+        }
       },
     }),
+
   ],
+
   session: {
     strategy: "jwt",
   },
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.role = user.role
+      }
+      return token
+    },
+    async session({ session, token }) {
+      // Inject token info ke session
+      if (token) {
+        session.user.id = token.id
+        session.user.role = token.role
+      }
+      return session
+    }
+  },
+
   pages: {
     signIn: "/login",
     error: "/login",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 }
 

@@ -5,7 +5,7 @@ const nextConfig = {
       ignored: ['**/node_modules', '**/C:/Users/ACER/Application Data/**']
     };
     return config;
-  }
+  },
 };
 
 export default nextConfig;
