@@ -23,7 +23,7 @@ const sidebarLinks = {
   ],
 }
 
-export default function Sidebar({ variant = "user" }) {
+export default function SidebarTes({ variant = "user" }) {
   const pathname = usePathname()
 
   const links = sidebarLinks[variant] || []
