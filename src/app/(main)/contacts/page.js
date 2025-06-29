@@ -1,7 +1,6 @@
 "use client"
 
-import { Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react"
-import RatingForm from "@/components/Rating"
+import { Mail, Phone, MapPin, Facebook, Instagram, User } from "lucide-react"
 
 export default function ContactPage() {
   return (
@@ -18,10 +17,6 @@ export default function ContactPage() {
         
       {/* Grid Layout */}
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-        {/* Right: Rating Form */}
-        <div className="self-start">
-          <RatingForm />
-        </div>
         {/* Left: Info Kontak */}
         <div className="space-y-6">
           <div className="bg-card border border-border rounded-xl shadow p-6 space-y-4 hover:shadow-lg hover:scale-[1.02] transition-all">
@@ -46,21 +41,62 @@ export default function ContactPage() {
               <a href="https://facebook.com/" className="text-base">SEA Catering</a>
             </div>
           </div>
+
+          <div className="bg-card border border-border rounded-xl shadow p-6 hover:shadow-lg hover:scale-[1.02] transition-all">
+            <h3 className="text-xl font-semibold text-primary mb-4">Ulas Layanan Kami!</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Sudah pernah mencoba layanan kami? Bagikan pengalaman Anda!
+            </p>
+            <a 
+              href="/rating" 
+              className="inline-block bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+            >
+              Beri Rating & Review
+            </a>
+          </div>
         </div>
 
-        
+        {/* Right: Info Grid */}
+        <div className="grid grid-cols-1 gap-6 h-fit">
+          <div className="bg-card border border-border rounded-xl shadow p-6 hover:shadow-lg hover:scale-[1.02] transition-all">
+            <h3 className="text-xl font-semibold text-primary mb-4">Tim Kami</h3>
+            <div className="space-y-3">
+              <div className="flex items-center gap-4">
+                <User className="w-5 h-5 text-primary" />
+                <span className="text-base"><strong>Manager:</strong> Brian Wijaya</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <User className="w-5 h-5 text-primary" />
+                <span className="text-base"><strong>Head Chef:</strong> Sari Indah</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <User className="w-5 h-5 text-primary" />
+                <span className="text-base"><strong>Customer Service:</strong> Dina Kusuma</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-card border border-border rounded-xl shadow p-6 hover:shadow-lg hover:scale-[1.02] transition-all">
+            <h3 className="text-xl font-semibold text-primary mb-4">Jam Operasional</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Senin - Jumat</span>
+                <span>08:00 - 20:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sabtu</span>
+                <span>08:00 - 18:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Minggu</span>
+                <span>10:00 - 16:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Divider */}
-      <div className="border-t border-border my-20"></div>
-
-      {/* Footer CTA */}
-      <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold text-primary">Kami Menantikan Feedback Anda!</h2>
-        <p className="text-muted-foreground">
-          Setiap ulasan dan saran akan membantu kami menjadi lebih baik.
-        </p>
-      </div>
+      
     </div>
     
   )
