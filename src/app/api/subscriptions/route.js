@@ -1,147 +1,173 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth/[...nextauth]/route'
+import { authOptions } from '../auth/[...nextauth]/route' // Adjust path sesuai struktur lu
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-// GET - Fetch user subscriptions
-export async function GET() {
-  try {
-    const session = await getServerSession(authOptions)
-    
-    if (!session) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
-
-    const subscriptions = await prisma.subscription.findMany({
-      where: {
-        userId: session.user.id
-      },
-      include: {
-        plan: {
-          select: {
-            name: true,
-            price: true,
-            description: true,
-            image: true
-          }
-        }
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    })
-
-    return NextResponse.json({ 
-      success: true, 
-      data: subscriptions 
-    })
-  } catch (error) {
-    console.error('Error fetching subscriptions:', error)
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch subscriptions' },
-      { status: 500 }
-    )
-  }
-}
-
-// POST - Create new subscription
 export async function POST(request) {
   try {
+    // Get session
     const session = await getServerSession(authOptions)
     
-    if (!session) {
+    if (!session || !session.user) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
+        { success: false, message: 'Unauthorized. Please login first.' },
         { status: 401 }
       )
     }
 
+    // Parse request body
     const body = await request.json()
-    const { planId, phone, mealTypes, deliveryDays, allergies } = body
+    const { planId, name, phone, mealTypes, deliveryDays, allergies, totalPrice } = body
 
     // Validation
-    if (!planId || !phone || !mealTypes || !deliveryDays) {
+    if (!planId || !name || !phone || !mealTypes || !deliveryDays || mealTypes.length === 0 || deliveryDays.length === 0) {
       return NextResponse.json(
-        { success: false, error: 'Plan, phone, meal types, and delivery days are required' },
+        { success: false, message: 'Please fill in all required fields.' },
         { status: 400 }
       )
     }
 
-    if (!Array.isArray(mealTypes) || mealTypes.length === 0) {
+    // Validate phone format
+    const phoneRegex = /^(\+?62|0)[0-9]{8,12}$/
+    if (!phoneRegex.test(phone)) {
       return NextResponse.json(
-        { success: false, error: 'At least one meal type must be selected' },
+        { success: false, message: 'Invalid phone number format.' },
         { status: 400 }
       )
     }
 
-    if (!Array.isArray(deliveryDays) || deliveryDays.length === 0) {
-      return NextResponse.json(
-        { success: false, error: 'At least one delivery day must be selected' },
-        { status: 400 }
-      )
-    }
+    // Get user ID from session
+    const userId = session.user.id
 
-    // Validate meal types
-    const validMealTypes = ['BREAKFAST', 'LUNCH', 'DINNER']
-    const invalidMealTypes = mealTypes.filter(type => !validMealTypes.includes(type))
-    if (invalidMealTypes.length > 0) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid meal types provided' },
-        { status: 400 }
-      )
-    }
-
-    // Get meal plan for price calculation
-    const mealPlan = await prisma.mealPlan.findUnique({
-      where: { id: planId }
+    // Check if user exists and update name/phone if needed
+    const user = await prisma.users.findUnique({
+      where: { id: userId }
     })
 
-    if (!mealPlan) {
+    if (!user) {
       return NextResponse.json(
-        { success: false, error: 'Meal plan not found' },
+        { success: false, message: 'User not found.' },
         { status: 404 }
       )
     }
 
-    // Calculate total price: Plan Price × Meal Types × Delivery Days × 4.3
-    const totalPrice = mealPlan.price * mealTypes.length * deliveryDays.length * 4.3
+    // Update user data if needed
+    if (user.name !== name || user.phone !== phone) {
+      await prisma.users.update({
+        where: { id: userId },
+        data: {
+          name: name,
+          phone: phone
+        }
+      })
+    }
 
+    // Check if plan exists (validate against mealPlans data)
+    const validPlanIds = ['diet', 'protein', 'royal'] // From your mealPlans.js
+    if (!validPlanIds.includes(planId)) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid meal plan selected.' },
+        { status: 400 }
+      )
+    }
+
+    // Create subscription
     const subscription = await prisma.subscription.create({
       data: {
-        userId: session.user.id,
-        planId,
-        phone: phone.trim(),
-        mealTypes,
-        deliveryDays,
-        allergies: allergies?.trim() || null,
+        userId: userId,
+        planId: planId,
+        phone: phone,
+        mealTypes: mealTypes,
+        deliveryDays: deliveryDays,
+        allergies: allergies || null,
         totalPrice: Math.round(totalPrice)
       },
       include: {
-        plan: {
+        user: {
           select: {
             name: true,
-            price: true,
-            description: true
+            phone: true
           }
         }
       }
     })
 
-    return NextResponse.json({ 
-      success: true, 
-      data: subscription,
-      message: 'Subscription created successfully'
+    return NextResponse.json({
+      success: true,
+      message: 'Subscription created successfully',
+      data: subscription
     })
+
   } catch (error) {
-    console.error('Error creating subscription:', error)
+    console.error('Subscription API Error:', error)
+    
+    // Handle specific Prisma errors
+    if (error.code === 'P2002') {
+      return NextResponse.json(
+        { success: false, message: 'Duplicate subscription found.' },
+        { status: 409 }
+      )
+    }
+
+    if (error.code === 'P2025') {
+      return NextResponse.json(
+        { success: false, message: 'User not found.' },
+        { status: 404 }
+      )
+    }
+
     return NextResponse.json(
-      { success: false, error: 'Failed to create subscription' },
+      { success: false, message: 'Internal server error. Please try again.' },
       { status: 500 }
     )
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+export async function GET(request) {
+  try {
+    // Get session
+    const session = await getServerSession(authOptions)
+    
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    const userId = session.user.id
+
+    // Get user's subscriptions
+    const subscriptions = await prisma.subscription.findMany({
+      where: { userId: userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        user: {
+          select: {
+            name: true,
+            phone: true
+          }
+        }
+      }
+    })
+
+    return NextResponse.json({
+      success: true,
+      data: subscriptions
+    })
+
+  } catch (error) {
+    console.error('Get Subscriptions API Error:', error)
+    
+    return NextResponse.json(
+      { success: false, message: 'Internal server error' },
+      { status: 500 }
+    )
+  } finally {
+    await prisma.$disconnect()
   }
 }
