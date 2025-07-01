@@ -4,7 +4,7 @@
   [![Logo banner](./docs/banner.png)](https://sea-catering.zenc.my.id/)
   -- Our Website --
   
-  [sea-catering.zenc.my.id](https://sea-catering.zenc.my.id/)
+  <a target="_blank" href="https://sea-catering.zenc.my.id">sea-catering.zenc.my.id</a>
 </div>
 
 ## 🚀 Tech Stack
