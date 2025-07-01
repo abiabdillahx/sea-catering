@@ -32,7 +32,7 @@ export default async function UserPage() {
               <span className="font-medium">0</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm text-muted-foreground">This Month's Orders</span>
+              <span className="text-sm text-muted-foreground">This Month&apos;s Orders</span>
               <span className="font-medium">0</span>
             </div>
             <div className="flex justify-between">

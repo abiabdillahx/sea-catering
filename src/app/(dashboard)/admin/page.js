@@ -17,7 +17,7 @@ export default async function AdminPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome back, {session.user.name}! Here's what's happening with SEA Catering.
+          Welcome back, {session.user.name}! Here&apos;s what&apos;s happening with SEA Catering.
         </p>
       </div>
 

@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 // Menu items untuk user
 const userItems = [
@@ -65,7 +66,7 @@ export default function DashboardLayout({ children }) {
           <SidebarContent>
             {/* Header */}
             <div className="flex items-center gap-2 p-4 font-bold text-xl">
-              <img 
+              <Image 
                 src="/logo.png" 
                 alt="SEA Catering" 
                 className="w-27 h-10"
