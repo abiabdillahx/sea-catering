@@ -35,7 +35,6 @@ import { Button } from "@/components/ui/button"
 // Menu items untuk user
 const userItems = [
   { title: "Home", url: "/user", icon: Home },
-  { title: "Profile", url: "/user/profile", icon: User },
   { title: "My Subscription", url: "/user/subscription", icon: Package },
   { title: "Settings", url: "/user/settings", icon: Settings },
 ]
@@ -43,7 +42,6 @@ const userItems = [
 // Menu items untuk admin
 const adminItems = [
   { title: "Dashboard", url: "/admin", icon: Home },
-  { title: "Profile", url: "/admin/profile", icon: User },
   { title: "Manage Users", url: "/admin/users", icon: Users },
   { title: "Subscriptions", url: "/admin/subscriptions", icon: Package },
   { title: "Meal Plans", url: "/admin/meal-plans", icon: FileText },
