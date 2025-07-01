@@ -3,6 +3,7 @@
 
   [![Logo banner](./docs/banner.png)](https://sea-catering.zenc.my.id/)
   -- Our Website --
+  
   [sea-catering.zenc.my.id](https://sea-catering.zenc.my.id/)
 </div>
 
@@ -15,12 +16,11 @@
 </div>
 
 - Frontend : Next.js (App router)
-- Backend : 
-- DB : PostgreSQL
-- Auth : 
+- DB : PostgreSQL + Supabase
+- Auth : NextAuth
 - ORM : Prisma
 - UI : TailwindCSS + shadcn/ui
-- Deployment : 
+- Deployment : Vercel
 
 ## 🔥 Our Features
 - Subscription 
@@ -38,22 +38,33 @@
 
 ## ⬇️ Installation
 Run on the local server:
-```bash
-# clone the repo 
+
+### 1. Clone the repo
+```bash 
 git clone https://github.com/abiabdillahx/sea-catering.git
 cd sea-catering
-
-# install the dependencies
-npm 
-
-# create .env file
-
-
-# start the server
+```
+### 2. Install the dependencies
+```bash
+npm install
+```
+### 3. Create .env file
+```bash
+# add these environment variables
+NEXTAUTH_URL=http://localhost:3000
+DATABASE_URL=Your_PostgresHost_Url
+NEXTAUTH_SECRET=the_nextauth_secret
+```
+### 4. Generate prisma client
+```bash
+npx prisma generate
+```
+### 5. Start the server
+```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 📚 API Documentation
-API documentation is available at [http://localhost:3000/api/docs](
+<!-- ## 📚 API Documentation
+API documentation is available at [http://localhost:3000/api/docs]( -->
